@@ -3,6 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const dotenv = require("dotenv");
+
+// Import the mongoose module
+const mongoose = require("mongoose");
+const result = dotenv.config()
+
+if (result.error) {
+  throw result.error
+}
+
+// console.log(result.parsed.key)
+const mongoDB = result.parsed.dbkey;
+// Set up default mongoose connection
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Get the default connection
+const db = mongoose.connection;
+
+// Bind connection to error event (to get notification of connection errors)
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
