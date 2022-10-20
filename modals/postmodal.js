@@ -9,7 +9,8 @@ const postSchema = new Schema({
     title:{type: String, required: true ,maxLengt:100},
     text:{type: String, required: true, maxLength:500},
     comments:{type: Schema.Types.ObjectId, ref:"Comments"},
-    timestamp:{type: Date, default: Date.now ,required:true}
+    timestamp:{type: Date, default: Date.now ,required:true},
+    visibility:{type: Boolean, default: true}
 });
 postSchema.virtual("date").get(()=>{
     return DateTime.fromJSDate(this.timestamp).toLocaleString(DateTime.DATE_MED);
