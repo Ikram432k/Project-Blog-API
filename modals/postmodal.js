@@ -5,13 +5,14 @@ const { schema } = require("./usermodal");
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
-    author:{type: String, required: true},
+    author:{type: Schema.Types.ObjectId,ref:"User"},
+    comments:[{type: Schema.Types.ObjectId,ref:"Comments"}],
     title:{type: String, required: true ,maxLengt:100},
     text:{type: String, required: true, maxLength:500},
     timestamp:{type: Date, default: Date.now ,required:true},
-    publish:{type: Boolean, default: true}
+    publish:{type: Boolean, default: false}
 });
-postSchema.virtual("date_formated").get(()=>{
+postSchema.virtual("timestamps").get(()=>{
     return this.date.toLocaleDateString("en-gb",{
         year: "numeric",
         month: "short",
