@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const { session } = require("passport");
 
 exports.signIn = [
 
@@ -50,11 +51,31 @@ async(req,res,next)=>{
 }
 ];
 
+exports.login =(req,res,next)=>{
+try{
+    passport.authenticate("local",{session:false},(err,user,info)=>{
+        if(err || !user){
+            const error = new Error('User does not exists');
+            return res.status(403).json({info});
+        }
+        req.login(user,{session:false}, (err)=>{
+            if(err){
+                next(err);
+            }
+            const body = {_id:user._id, username:user.username}
+            const token = jwt.sign({user:body},process.env.secret,{expiresIn:'1d'});
 
-exports.Login =(req,res)=>{
-    res.send("not implemented");
+            return res.status(200).json({body,token});
+        })
+    })(req, res, next);
+}catch(error){
+    return res.status(403).json({error});
 }
+};
 
-exports.userLogout =(req,res)=>{
-    res.send("not implemented");
-}
+exports.logout =(req,res)=>{
+    // req.logout();
+    // res.redirect("/");
+    //clear localstorage in client side
+    console.log('logout');
+};
