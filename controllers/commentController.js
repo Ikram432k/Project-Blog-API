@@ -15,8 +15,7 @@ exports.createComment = [
         try{
             const comment = new Comment({
                 comment: req.body.comment,
-                // user: req.user._id,
-                postId: req.params.postId
+                postId: req.params.postid
             })
             comment.save(err=>{
                 if(err){
@@ -36,8 +35,6 @@ exports.createComment = [
 
 exports.commentsOnpost = async(req,res,next)=>{
     try{
-        // const comments = await Comment.find({},{title: 1, text: 1, timestamp: 1 })
-        // .populate('author', {username: 1, _id: 0})
         const comments = await Comment.find({postId: req.params.postid})
         if(!comments || comments.length==0){
             return res.status(403).json({message: "no comments available"})
@@ -46,8 +43,24 @@ exports.commentsOnpost = async(req,res,next)=>{
     }catch(error){
         return next(error);
     }
-}
+};
 
-exports.commentDelete =(req,res)=>{
-    res.send("not implemented");
-}
+exports.commentDelete = async(req,res,next)=>{
+    try{
+        const comment = await Comment.findByIdAndDelete(req.params.commentid);
+        if(!comment){
+            res.status(403).json({message:`no comment find by ${req.params.commentid}`});
+        }
+        else{
+            const deleteFrompost = await Comment.findOneAndUpdate({
+                _id:req.params.postid
+            },
+            {$pull:{
+                comment: req.params.postid
+            }})
+            return res.status(200).json({message: "comment deleted",comment:comment,deleteFrompost})
+        }
+    }catch(err){
+        return next(err);
+    }
+};
