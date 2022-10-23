@@ -23,11 +23,14 @@ router.get("/posts/postid",Post.singlePost);
 // create post for author - api/post
 router.post('/posts', passport.authenticate('jwt', {session: false}), Post.createPost);
 
-// create comment on pos"t - api/posts/:postid/comments
+// create comment on post - api/posts/:postid/comments
 router.post('/posts/:postid/comments',Comment.createComment);
 
 // view comment on single post -api/posts/postid
 router.get('/posts/:postid',Comment.commentsOnpost);
+
+// delete comment on post -api/posts/postid/comments/commentid
+router.post('/posts/:postid/comments/:commentid',Comment.commentDelete);
 
 // view all the comments on the post - api/posts/postid/comment
 module.exports = router;
