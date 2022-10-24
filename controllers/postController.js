@@ -1,7 +1,7 @@
 const { body,validationResult } = require("express-validator");
 const Post = require("../modals/postmodal");
 const User = require("../modals/usermodal");
-
+const Comment = require("../modals/commentmodal");
 exports.createPost = [
     body('title').trim().isLength({min:1}).withMessage("title must not be empty"),
     body('text').trim().isLength({min:1}).withMessage("text must not be empty"),
@@ -60,6 +60,45 @@ exports.singlePost = async(req,res,next)=>{
     }
 }
 
+exports.singlePostUpdated = async(req,res,next)=>{
+    try{
+        if(req.user){
+            const post = await Post.findByIdAndUpdate(req.params.postid,{
+                title: req.body.title,
+                text: req.body.text
+            });
+            if(!post){
+                return res.status(403).json({message: "no post available from this id"});
+            }
+            res.status(200).json({message:`post with ${req.params.postid} id is updated`,post: post});
+        }
+    }catch(error){
+        return next(error);
+    }
+}
+//shoud also delete the post id from the user 
+exports.DeleteSinglePost = async(req,res,next)=>{
+    try{
+        if(req.user){
+            const post = await Post.findByIdAndDelete({_id:req.params.postid});
+            if(!post){
+                return res.status(403).json({message: "no post available from this id"});
+            }
+            else{
+                const deleteFromuser = await User.findOneAndUpdate({
+                    _id:req.user.id
+                },
+                {$pull:{
+                    post: req.params.postid
+                }})
+            }
+            const deletedComments = await Comment.deleteMany({postId:req.params.postid});
+            res.status(200).json({message:`post with ${req.params.postid} id is deleted`,post: post,comments:deletedComments});
+        }
+    }catch(error){
+        return next(error);
+    }
+}
 exports.postVisibility =(req,res)=>{
     res.send("not implemented");
 }
