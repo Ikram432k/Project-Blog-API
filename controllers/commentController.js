@@ -52,13 +52,13 @@ exports.commentDelete = async(req,res,next)=>{
             res.status(403).json({message:`no comment find by ${req.params.commentid}`});
         }
         else{
-            const deleteFrompost = await Comment.findOneAndUpdate({
+            const deleteFrompost = await Post.findOneAndUpdate({
                 _id:req.params.postid
             },
             {$pull:{
                 comment: req.params.postid
             }})
-            return res.status(200).json({message: "comment deleted",comment:comment,deleteFrompost})
+            return res.status(200).json({message: "comment deleted",comment:comment})
         }
     }catch(err){
         return next(err);
