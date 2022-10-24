@@ -23,6 +23,12 @@ router.get("/posts/postid",Post.singlePost);
 // create post for author - api/post
 router.post('/posts', passport.authenticate('jwt', {session: false}), Post.createPost);
 
+// updated single post
+router.post('/posts/:postid/update',passport.authenticate('jwt', {session: false}), Post.singlePostUpdated);
+
+// delete single post
+router.post('/posts/:postid/delete',passport.authenticate('jwt', {session: false}),Post.DeleteSinglePost);
+
 // create comment on post - api/posts/:postid/comments
 router.post('/posts/:postid/comments',Comment.createComment);
 
