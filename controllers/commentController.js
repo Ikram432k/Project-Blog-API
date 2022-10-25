@@ -45,6 +45,22 @@ exports.commentsOnpost = async(req,res,next)=>{
     }
 };
 
+// exports.commentsUpdates = async(req,res,next)=>{
+//     try{
+//         if(req.user){
+//             const comment = await Comment.findByIdAndUpdate(req.params.commentid,{
+//                 comment:req.body.comment
+//             });
+//             if(!comment){
+//                 return res.status(403).json({message:"no comment available for this id"});
+//             }
+//             res.status(200).json({message:`comment with ${req.params.commentid} id is updated`,comment: comment});
+//         }
+//     }catch(err){
+//         return next(err);
+//     }
+// };
+
 exports.commentDelete = async(req,res,next)=>{
     try{
         const comment = await Comment.findByIdAndDelete(req.params.commentid);
@@ -56,7 +72,7 @@ exports.commentDelete = async(req,res,next)=>{
                 _id:req.params.postid
             },
             {$pull:{
-                comment: req.params.postid
+                comments: req.params.commentid
             }})
             return res.status(200).json({message: "comment deleted",comment:comment})
         }
