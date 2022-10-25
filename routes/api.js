@@ -5,6 +5,12 @@ const User = require("../controllers/userController");
 const Post = require("../controllers/postController");
 const Comment = require("../controllers/commentController");
 /* GET home page. */
+/* index route*/
+router.get("/", function (req, res, next) {
+    res.redirect("/api/posts");
+  });
+/************* User login,signup,logout **************/ 
+
 // login author - api/login
 router.post("/login", User.login);
 
@@ -12,7 +18,9 @@ router.post("/login", User.login);
 router.post("/logout", User.logout);
 
 // create author - api/signup
-router.post("/sign-up", User.signIn);
+router.post("/signup", User.signIn);
+
+/************ CURD opertion of Post **************/
 
 // view all posts
 router.get("/posts",Post.postList);
@@ -29,14 +37,17 @@ router.post('/posts/:postid/update',passport.authenticate('jwt', {session: false
 // delete single post
 router.post('/posts/:postid/delete',passport.authenticate('jwt', {session: false}),Post.DeleteSinglePost);
 
-// create comment on post - api/posts/:postid/comments
-router.post('/posts/:postid/comments',Comment.createComment);
+/********** CURD operation on comments**********/
 
-// view comment on single post -api/posts/postid
-router.get('/posts/:postid',Comment.commentsOnpost);
+// create comment on post - api/posts/:postid/comments
+router.post('/posts/:postid/comment',Comment.createComment);
+
+// view all the comment on single post -api/posts/postid
+router.get('/posts/:postid/postComments',Comment.commentsOnpost);
 
 // delete comment on post -api/posts/postid/comments/commentid
-router.post('/posts/:postid/comments/:commentid',Comment.commentDelete);
+router.post('/posts/:postid/comment/:commentid',Comment.commentDelete);
 
-// view all the comments on the post - api/posts/postid/comment
+// // update comment on the post by author -api/posts/postid/commentid
+// router.post('/comment/:commentid' ,Comment.commentsUpdates);
 module.exports = router;
