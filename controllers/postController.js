@@ -51,10 +51,10 @@ exports.singlePost = async(req,res,next)=>{
        const post = await Post.findById({_id:req.params.postid})
        .populate('author',{username: 1})
        console.log(post);
-       if(!post || post.length == 0){
+       if(!post){
         return res.status(403).json({message: "no post available from this author"});
        } 
-       return res.status(200).json({post});
+       res.status(200).json({post});
     }catch(error){
         return res.status(403).json({message: "post does not exists"});
     }
@@ -84,14 +84,12 @@ exports.DeleteSinglePost = async(req,res,next)=>{
             if(!post){
                 return res.status(403).json({message: "no post available from this id"});
             }
-            else{
-                const deleteFromuser = await User.findOneAndUpdate({
-                    _id:req.user.id
-                },
-                {$pull:{
-                    post: req.params.postid
-                }})
-            }
+            const deleteFromuser = await User.findOneAndUpdate({
+                _id:req.user._id
+            },
+            {$pull:{
+                posts: req.params.postid
+            }})
             const deletedComments = await Comment.deleteMany({postId:req.params.postid});
             res.status(200).json({message:`post with ${req.params.postid} id is deleted`,post: post,comments:deletedComments});
         }
