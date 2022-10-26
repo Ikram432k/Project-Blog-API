@@ -9,7 +9,8 @@ require('./helpers/passport');
 
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const apiRouter = require('./routes/api');
+const indexRouter = require("./routes/index");
+const apiRouter = require("./routes/api");
 const jwt = require('jsonwebtoken');
 
 // Import the mongoose module
@@ -46,7 +47,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.use('/api', apiRouter);
+app.use("/", indexRouter);
+app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
