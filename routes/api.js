@@ -4,11 +4,12 @@ const passport = require('passport');
 const User = require("../controllers/userController");
 const Post = require("../controllers/postController");
 const Comment = require("../controllers/commentController");
-/* GET home page. */
+
 /* index route*/
 router.get("/", function (req, res, next) {
-    res.redirect("/api/posts");
-  });
+  res.redirect("/api/posts");
+});
+
 /************* User login,signup,logout **************/ 
 
 // login author - api/login
@@ -26,10 +27,10 @@ router.post("/signup", User.signIn);
 router.get("/posts",Post.postList);
 
 // view single post only
-router.get("/posts/postid",Post.singlePost);
+router.get("/posts/:postid",Post.singlePost);
 
 // create post for author - api/post
-router.post('/posts', passport.authenticate('jwt', {session: false}), Post.createPost);
+router.post('/posts/createpost', passport.authenticate('jwt', {session: false}), Post.createPost);
 
 // updated single post
 router.post('/posts/:postid/update',passport.authenticate('jwt', {session: false}), Post.singlePostUpdated);
@@ -48,6 +49,7 @@ router.get('/posts/:postid/postComments',Comment.commentsOnpost);
 // delete comment on post -api/posts/postid/comments/commentid
 router.post('/posts/:postid/comment/:commentid',Comment.commentDelete);
 
-// // update comment on the post by author -api/posts/postid/commentid
-// router.post('/comment/:commentid' ,Comment.commentsUpdates);
+// update comment on the post by author -api/posts/postid/commentid
+router.post('/comment/:commentid/update' ,passport.authenticate('jwt', {session: false}),Comment.commentsUpdates);
+
 module.exports = router;
