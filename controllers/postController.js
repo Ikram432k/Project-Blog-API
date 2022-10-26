@@ -38,6 +38,7 @@ exports.createPost = [
 exports.postList = async(req,res,next)=>{
     try {
         const posts = await Post.find({}).populate('author', {username: 1, _id: 0});
+        posts.sort((a, b) => b.date - a.date);
         if (!posts) {
           return res.status(404).json({ err: "posts not found" });
         }
