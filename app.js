@@ -7,6 +7,7 @@ var logger = require('morgan');
 require('dotenv').config();
 require('./helpers/passport');
 
+const cors = require("cors");
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const indexRouter = require("./routes/index");
@@ -38,6 +39,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
