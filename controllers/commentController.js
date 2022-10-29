@@ -3,6 +3,7 @@ const Post = require("../modals/postmodal");
 const Comment = require("../modals/commentmodal");
 
 exports.createComment = [
+    body('name').trim().isLength({min:1}).withMessage("name must not be empty"),
     body('comment').trim().isLength({min:1}).withMessage("commnet must not be empty"),
     async(req,res,next)=>{
         const errors = validationResult(req);
@@ -14,9 +15,10 @@ exports.createComment = [
         }
         try{
             const comment = new Comment({
+                name: req.body.name,
                 comment: req.body.comment,
                 postId: req.params.postid
-            })
+            })  
             comment.save(err=>{
                 if(err){
                     return next(err);
