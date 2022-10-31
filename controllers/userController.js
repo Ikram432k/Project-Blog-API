@@ -5,7 +5,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const { session } = require("passport");
 
-exports.signIn = [
+exports.signUp = [
 
 body('username').trim().isLength({min:2})
 .custom( async(username) =>{
