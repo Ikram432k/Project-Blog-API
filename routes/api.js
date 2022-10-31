@@ -19,7 +19,7 @@ router.post("/login", User.login);
 router.post("/logout", User.logout);
 
 // create author - api/signup
-router.post("/signup", User.signIn);
+router.post("/signup", User.signUp);
 
 /************ CURD opertion of Post **************/
 
