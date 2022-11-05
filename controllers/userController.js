@@ -56,7 +56,7 @@ try{
     passport.authenticate("local",{session:false},(err,user,info)=>{
         if(err || !user){
             const error = new Error('User does not exists');
-            return res.status(403).json({info});
+            return res.status(200).json({info});
         }
         req.login(user,{session:false}, (err)=>{
             if(err){
