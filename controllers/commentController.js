@@ -39,7 +39,7 @@ exports.commentsOnpost = async(req,res,next)=>{
     try{
         const comments = await Comment.find({postId: req.params.postid})
         if(!comments || comments.length==0){
-            return res.status(403).json({message: "no comments available"})
+            return res.status(200).json({message: "no comments available"})
         }
         return res.status(200).json(comments)
     }catch(error){
