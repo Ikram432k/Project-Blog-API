@@ -6,7 +6,8 @@ const passportJWT = require('passport-jwt');
 const { token } = require('morgan');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
-require('dotenv').config();
+// require('dotenv').config();
+const keys = require("./env");
 
 
 passport.use(new LocalStrategy((username,password,done)=>{
@@ -35,7 +36,9 @@ passport.use(new LocalStrategy((username,password,done)=>{
 passport.use(
     new JwtStrategy({
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.secret
+        secretOrKey: keys.secretOrKey
+
+        // secretOrKey: process.env.secret
     },
     async (token, done)=>{
         try{
