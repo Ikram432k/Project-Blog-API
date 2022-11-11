@@ -21,7 +21,7 @@ const mongoose = require("mongoose");
 //   throw result.error
 // }
 
-console.log(result.parsed.dbkey)
+// console.log(result.parsed.dbkey)
 const mongoDB = process.env.dbkey;
 
 // Set up default mongoose connection
