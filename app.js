@@ -3,9 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const dotenv = require("dotenv");
-// const result = dotenv.config({silent: true});
-require('dotenv').config({silent: true});
+
+require('dotenv').config();
 require('./helpers/passport');
 
 const cors = require("cors");
@@ -15,13 +14,14 @@ const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const result = dotenv.config()
 
+if (result.error) {
+  throw result.error
+}
 
-// if (result.error) {
-//   throw result.error
-// }
-
-// console.log(result.parsed.dbkey)
+console.log(result.parsed.dbkey)
 const mongoDB = process.env.dbkey;
 
 // Set up default mongoose connection
