@@ -17,9 +17,9 @@ const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 
 
-if (result.error) {
-  throw result.error
-}
+// if (result.error) {
+//   throw result.error
+// }
 
 console.log(result.parsed.dbkey)
 const mongoDB = process.env.dbkey;
