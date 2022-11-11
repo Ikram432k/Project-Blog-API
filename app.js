@@ -14,20 +14,9 @@ const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
-
-
 const dotenv = require("dotenv");
+const result = require('dotenv').config({path: __dirname + '/.env'});
 
-// // Establish database connection
-// const result = dotenv.config()
-
-// const mongoDB = result.parsed.dbkey;
-// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-
-//Import the mongoose module
-const result = dotenv.config()
 
 if (result.error) {
   throw result.error
@@ -81,3 +70,12 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+// // Establish database connection
+// const result = dotenv.config()
+
+// const mongoDB = result.parsed.dbkey;
+// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+
+//Import the mongoose module
