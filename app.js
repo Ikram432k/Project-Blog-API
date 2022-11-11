@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const dotenv = require("dotenv");
-const result = dotenv.config({silent: true});
-// require('dotenv').config({silent: true});
+// const result = dotenv.config({silent: true});
+require('dotenv').config({silent: true});
 require('./helpers/passport');
 
 const cors = require("cors");
