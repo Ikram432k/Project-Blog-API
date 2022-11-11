@@ -74,8 +74,3 @@ module.exports = app;
 
 // const mongoDB = result.parsed.dbkey;
 // mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-
-//Import the mongoose module
-
