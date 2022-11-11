@@ -33,7 +33,7 @@ passport.use(new LocalStrategy((username,password,done)=>{
 passport.use(
     new JwtStrategy({
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.SECRET_KEY
+        secretOrKey: jwtkey
     },
     async (token, done)=>{
         try{
