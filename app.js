@@ -14,8 +14,19 @@ const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 const jwt = require('jsonwebtoken');
 
-// Import the mongoose module
+
+const dotenv = require("dotenv");
+
+// Establish database connection
+const result = dotenv.config()
+
 const mongoose = require("mongoose");
+const mongoDB = result.parsed.dbkey;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+
+// Import the mongoose module
 // const result = dotenv.config()
 
 // if (result.error) {
@@ -23,9 +34,10 @@ const mongoose = require("mongoose");
 // }
 
 // console.log(result.parsed.key)
-const mongoDB = process.env.dbkey;
-// Set up default mongoose connection
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+// const mongoDB = process.env.dbkey;
+
+// // Set up default mongoose connection
+// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Get the default connection
 const db = mongoose.connection;
