@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-require('dotenv').config();
+require('dotenv').config({silent: true});
 require('./helpers/passport');
 
 const cors = require("cors");
@@ -15,8 +15,7 @@ const apiRouter = require("./routes/api");
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const result = require('dotenv').config({path: __dirname + '/.env'});
-
+const result = dotenv.config({silent: true});
 
 if (result.error) {
   throw result.error
@@ -79,3 +78,4 @@ module.exports = app;
 
 
 //Import the mongoose module
+
