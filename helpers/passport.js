@@ -6,6 +6,8 @@ const passportJWT = require('passport-jwt');
 const { token } = require('morgan');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
+require('dotenv').config();
+
 
 passport.use(new LocalStrategy((username,password,done)=>{
     User.findOne({username: username},(err,user)=>{
