@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const User = require("../modals/usermodal");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
@@ -74,8 +76,6 @@ try{
 };
 
 exports.logout =(req,res)=>{
-    // req.logout();
-    // res.redirect("/");
     //clear localstorage in client side
     console.log('logout');
 };
