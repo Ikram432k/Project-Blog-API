@@ -65,7 +65,7 @@ try{
                 next(err);
             }
             const body = {_id:user._id, username:user.username}
-            const token = jwt.sign({user:body},process.env.secret,{expiresIn:'1d'});
+            const token = jwt.sign({user:body},process.env.SECRET_KEY,{expiresIn:'1d'});
 
             return res.status(200).json({body,token});
         })
