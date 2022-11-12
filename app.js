@@ -10,18 +10,18 @@ require('./helpers/passport');
 const cors = require("cors");
 const passport = require('passport');
 const bodyParser = require('body-parser');
-// const indexRouter = require("./routes/index");
+const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-// const result = dotenv.config()
+const result = dotenv.config()
 
-// if (result.error) {
-//   throw result.error
-// }
+if (result.error) {
+  throw result.error
+}
 
-// console.log(result.parsed.dbkey)
+console.log(result.parsed.dbkey)
 const mongoDB = process.env.dbkey;
 
 // Set up default mongoose connection
@@ -59,13 +59,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.options('*', cors(corsOptions));
 
-
-app.use('/api', cors(corsOptions), apiRouter);
-
-// app.use("/", indexRouter);
-// app.use("/api", apiRouter);
+app.use("/", indexRouter);
+app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
