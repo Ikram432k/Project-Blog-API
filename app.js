@@ -40,8 +40,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 
+const cors = require('cors');
 const corsOptions ={
-    origin:['https://web-production-9701.up.railway.app/','http://localhost:3000'],
+    origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
@@ -58,7 +59,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 
 app.use("/", indexRouter);
 app.use("/api", apiRouter);
