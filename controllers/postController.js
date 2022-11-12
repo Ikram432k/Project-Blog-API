@@ -52,7 +52,7 @@ exports.postOfUser =async(req,res,next)=>{
     try{
         const posts = await Post.find({author: req.params.userid}).populate('author', {username: 1, _id: 0});
         if(!posts || posts.length==0){
-            return res.status(403).json({message: "no posts available"})
+            return res.status(200).json({message: "no posts available"})
         }
         return res.status(200).json({posts});
     }catch(error){
