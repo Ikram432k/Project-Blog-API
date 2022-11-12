@@ -5,10 +5,10 @@ const User = require("../controllers/userController");
 const Post = require("../controllers/postController");
 const Comment = require("../controllers/commentController");
 
-/* index route*/
-router.get("/", function (req, res, next) {
-  res.redirect("/api/posts");
-});
+// /* index route*/
+// router.get("/", function (req, res, next) {
+//   res.redirect("/api/posts");
+// });
 
 /************* User login,signup,logout **************/ 
 
