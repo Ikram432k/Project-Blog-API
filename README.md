@@ -1,4 +1,4 @@
-# My Blog (API)
+# Blog (API)
 
 <p><a href="https://ikram432k.github.io/blog-client-repo/" target="_blank" rel="noopener noreferrer">View the project here!</a> 👀 (client)</p>
 
