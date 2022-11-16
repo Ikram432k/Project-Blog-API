@@ -30,7 +30,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 var app = express();
 
 const corsOptions ={
-  origin:'https://ikram432k.github.io', 
+  origin:['https://ikram432k.github.io','http://localhost:3000/'], 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
