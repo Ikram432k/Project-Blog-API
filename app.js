@@ -31,7 +31,7 @@ var app = express();
 
 const corsOptions ={
   // origin:'https://ikram432k.github.io',
-  origin:'http://localhost:3000/', 
+  origin:'http://localhost:3000', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
