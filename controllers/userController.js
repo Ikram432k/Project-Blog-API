@@ -75,7 +75,7 @@ try{
 }
 };
 
-exports.logout =(req,res)=>{
-    //clear localstorage in client side
-    console.log('logout');
-};
+// exports.logout =(req,res)=>{
+//     //clear localstorage in client side
+//     console.log('logout');
+// };
