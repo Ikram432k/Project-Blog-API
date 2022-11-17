@@ -15,9 +15,6 @@ router.get("/", function (req, res, next) {
 // login author - api/login
 router.post("/login", User.login);
 
-//logout auhtor - api/logout
-router.post("/logout", User.logout);
-
 // create author - api/signup
 router.post("/signup", User.signUp);
 
